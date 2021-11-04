@@ -1,0 +1,300 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE profile>
+<profile xmlns="http://www.suse.com/1.0/yast2ns" xmlns:config="http://www.suse.com/1.0/configns">
+  <add-on>
+    <add_on_products config:type="list">
+      <listentry>
+        <media_url>http://example.com/m51-st1-suse-microos-5.1-updates-x86_64/m51-st1</media_url>
+        <product>SUSE-MicroOS-5.1-Updates</product>
+        <name>SUSE-MicroOS-5.1-Updates</name>
+        <alias>SUSE-MicroOS-5.1-Updates</alias>
+        <priority config:type="integer">99</priority>
+        <product_dir/>
+      </listentry>
+            <listentry>
+        <media_url>http://example.com/m51-st1-sle-manager-tools15-pool-x86_64-micro-5.1/m51-st1</media_url>
+        <product>SUSE-MicroOS-Tools-5.0-Pools</product>
+        <name>SUSE-MicroOS-Tools-5.0-Updates</name>
+        <alias>SUSE-MicroOS-Tools-5.0-Updates</alias>
+        <priority config:type="integer">99</priority>
+        <product_dir/>
+      </listentry>
+      <listentry>
+        <media_url>http://example.com/m51-st1-sle-manager-tools15-updates-x86_64-micro-5.1/m51-st1</media_url>
+        <product>SUSE-MicroOS-Tools-5.0-Updates</product>
+        <name>SUSE-MicroOS-Tools-5.0-Updates</name>
+        <alias>SUSE-MicroOS-Tools-5.0-Updates</alias>
+        <priority config:type="integer">99</priority>
+        <product_dir/>
+      </listentry>
+    </add_on_products>
+  </add-on>
+
+  <bootloader>
+    <global>
+      <timeout config:type="integer">5</timeout>
+      <hiddenmenu>false</hiddenmenu>
+    </global>
+  </bootloader>
+
+  <general>
+    <self_update config:type="boolean">false</self_update>
+    <mode>
+      <second_stage config:type="boolean">false</second_stage>
+      <confirm config:type="boolean">false</confirm>
+    </mode>
+    <signature-handling>
+      <accept_file_without_checksum config:type="boolean">true</accept_file_without_checksum>
+      <accept_non_trusted_gpg_key config:type="boolean">true</accept_non_trusted_gpg_key>
+      <accept_unknown_gpg_key config:type="boolean">true</accept_unknown_gpg_key>
+      <accept_unsigned_file config:type="boolean">true</accept_unsigned_file>
+      <accept_verification_failed config:type="boolean">true</accept_verification_failed>
+      <import_gpg_key config:type="boolean">true</import_gpg_key>
+    </signature-handling>
+  </general>
+
+  <partitioning config:type="list">
+    <drive>
+      <device>/dev/sda</device>
+      <disklabel>gpt</disklabel>
+      <enable_snapshots config:type="boolean">true</enable_snapshots>
+      <initialize config:type="boolean">false</initialize>
+      <partitions config:type="list">
+        <partition>
+          <create config:type="boolean">true</create>
+          <filesystem config:type="symbol">vfat</filesystem>
+          <format config:type="boolean">true</format>
+          <mount>/boot/efi</mount>
+          <mountby config:type="symbol">uuid</mountby>
+          <partition_id config:type="integer">259</partition_id>
+          <partition_nr config:type="integer">1</partition_nr>
+          <resize config:type="boolean">false</resize>
+          <size>524288000</size>
+        </partition>
+        <partition>
+          <create config:type="boolean">true</create>
+          <create_subvolumes config:type="boolean">true</create_subvolumes>
+          <filesystem config:type="symbol">btrfs</filesystem>
+          <format config:type="boolean">true</format>
+          <mount>/</mount>
+          <mountby config:type="symbol">uuid</mountby>
+          <partition_id config:type="integer">131</partition_id>
+          <partition_nr config:type="integer">2</partition_nr>
+          <resize config:type="boolean">false</resize>
+          <size>20G</size>
+          <subvolumes config:type="list">
+            <subvolume>
+              <copy_on_write config:type="boolean">true</copy_on_write>
+              <path>opt</path>
+            </subvolume>
+            <subvolume>
+              <copy_on_write config:type="boolean">true</copy_on_write>
+              <path>home</path>
+            </subvolume>
+            <subvolume>
+              <copy_on_write config:type="boolean">true</copy_on_write>
+              <path>root</path>
+            </subvolume>
+            <subvolume>
+              <copy_on_write config:type="boolean">true</copy_on_write>
+              <path>usr/local</path>
+            </subvolume>
+            <subvolume>
+              <copy_on_write config:type="boolean">false</copy_on_write>
+              <path>var</path>
+            </subvolume>
+            <subvolume>
+              <copy_on_write config:type="boolean">true</copy_on_write>
+              <path>tmp</path>
+            </subvolume>
+            <subvolume>
+              <copy_on_write config:type="boolean">true</copy_on_write>
+              <path>boot/grub2/i386-pc</path>
+            </subvolume>
+            <subvolume>
+              <copy_on_write config:type="boolean">true</copy_on_write>
+              <path>boot/grub2/x86_64-efi</path>
+            </subvolume>
+            <subvolume>
+              <copy_on_write config:type="boolean">true</copy_on_write>
+              <path>srv</path>
+            </subvolume>
+          </subvolumes>
+          <subvolumes_prefix><![CDATA[@]]></subvolumes_prefix>
+        </partition>
+        <partition>
+          <create config:type="boolean">true</create>
+          <filesystem config:type="symbol">xfs</filesystem>
+          <format config:type="boolean">true</format>
+          <mount>/var</mount>
+          <mountby config:type="symbol">uuid</mountby>
+          <partition_id config:type="integer">131</partition_id>
+          <partition_nr config:type="integer">3</partition_nr>
+          <resize config:type="boolean">false</resize>
+          <size>15G</size>
+        </partition>
+      </partitions>
+      <type config:type="symbol">CT_DISK</type>
+      <use>all</use>
+   </drive>
+    <drive>
+      <device>/dev/sdb</device>
+      <disklabel>none</disklabel>
+      <initialize config:type="boolean">false</initialize>
+      <partitions config:type="list">
+        <partition>
+          <create config:type="boolean">true</create>
+          <filesystem config:type="symbol">xfs</filesystem>
+          <format config:type="boolean">true</format>
+          <mount>/srv/longhorn</mount>
+          <mountby config:type="symbol">uuid</mountby>
+          <partition_id config:type="integer">131</partition_id>
+          <partition_nr config:type="integer">1</partition_nr>
+          <resize config:type="boolean">false</resize>
+          <size>max</size>
+        </partition>
+      </partitions>
+      <type config:type="symbol">CT_DISK</type>
+      <use>all</use>
+    </drive>
+    <drive>
+      <device>/dev/sdc</device>
+      <disklabel>none</disklabel>
+      <initialize config:type="boolean">false</initialize>
+      <partitions config:type="list">
+        <partition>
+          <create config:type="boolean">true</create>
+          <filesystem config:type="symbol">xfs</filesystem>
+          <format config:type="boolean">true</format>
+          <mount>/var/lib/rancher/k3s/agent/containerd</mount>
+          <mountby config:type="symbol">uuid</mountby>
+          <partition_id config:type="integer">131</partition_id>
+          <partition_nr config:type="integer">1</partition_nr>
+          <resize config:type="boolean">false</resize>
+          <size>max</size>
+        </partition>
+      </partitions>
+      <type config:type="symbol">CT_DISK</type>
+      <use>all</use>
+    </drive>
+  </partitioning>
+
+  <software>
+    <products config:type="list">
+      <product>SUSE-MicroOS</product>
+    </products>
+    <install_recommended config:type="boolean">true</install_recommended>
+    <packages config:type="list">
+      <package>grub2</package>
+      <package>open-iscsi</package>
+      <package>patterns-microos-sssd_ldap</package>
+    </packages>
+    <patterns config:type="list">
+      <pattern>basesystem</pattern>
+      <pattern>microos-container_runtime</pattern>
+      <pattern>microos-selinux</pattern>
+      <pattern>microos-salt_minion</pattern>
+      <pattern>microos-sssd_ldap</pattern>
+    </patterns>
+  </software>
+
+  <users config:type="list">
+    <user>
+      <authorized_keys config:type="list"/>
+      <encrypted config:type="boolean">false</encrypted>
+      <fullname>root</fullname>
+      <gid>0</gid>
+      <home>/root</home>
+      <home_btrfs_subvolume config:type="boolean">false</home_btrfs_subvolume>
+      <password_settings>
+        <expire/>
+        <flag/>
+        <inact/>
+        <max/>
+        <min/>
+        <warn/>
+      </password_settings>
+      <shell>/bin/bash</shell>
+      <uid>0</uid>
+      <user_password>suse1234</user_password>
+      <username>root</username>
+    </user>
+  </users>
+  <keyboard>
+    <keymap>german</keymap>
+  </keyboard>
+  <language>
+    <language>en_US</language>
+  </language>
+
+  <networking>
+    <ipv6 config:type="boolean">false</ipv6>
+    <keep_install_network config:type="boolean">false</keep_install_network>
+    <managed config:type="boolean">false</managed>
+
+    <dhcp_options>
+      <dhclient_hostname_option>AUTO</dhclient_hostname_option>
+    </dhcp_options>
+    <dns>
+      <dhcp_hostname config:type="boolean">false</dhcp_hostname>
+      <nameservers config:type="list">
+        <nameserver>8.8.8.8</nameserver>
+      </nameservers>
+      <domain>example.com</domain>
+      <hostname>node01</hostname>
+      <searchlist config:type="list">
+        <search>example.com</search>
+      </searchlist>
+      <write_hostname config:type="boolean">false</write_hostname>
+    </dns>
+    <routing>
+      <ip_forward config:type="boolean">false</ip_forward>
+      <routes config:type="list">
+        <route>
+          <destination>default</destination>
+          <device>-</device>
+          <gateway>24</gateway>
+          <netmask>-</netmask>
+        </route>
+      </routes>
+    </routing>
+    <interfaces config:type="list">
+      <interface>
+        <bootproto>static</bootproto>
+        <device>eth0</device>
+        <ipaddr>192.168.0.2</ipaddr>
+        <prefixlen>19.168.0.1</prefixlen>
+        <startmode>auto</startmode>
+        <usercontrol>no</usercontrol>
+      </interface>
+    </interfaces>
+    <net-udev config:type="list">
+     <rule>
+      <name>$NIC_NAME1</name>
+      <rule>KERNELS</rule>
+      <value>0000:$NIC_PCI1</value>
+     </rule>
+  </net-udev>
+</networking>
+
+<host>
+    <hosts config:type="list">
+      <hosts_entry>
+        <host_address>127.0.0.1</host_address>
+        <names config:type="list">
+          <name>localhost</name>
+        </names>
+      </hosts_entry>
+    <hosts_entry>
+        <host_address>192.168.0.3</host_address>
+        <names config:type="list">
+          <name>home server16</name>
+        </names>
+      </hosts_entry>
+    </hosts>
+ </host>
+
+ <kdump>
+  <add_crash_kernel config:type="boolean">false</add_crash_kernel>
+</kdump>
+</profile>
