@@ -1,0 +1,1 @@
+# slemicro-autoyast-samples
